@@ -2,6 +2,9 @@
 
 A professional AI-powered support desk application built with React (Vite) and Express (Node.js). It leverages OpenAI, Gemini, and Tavily for intelligent ticket triage and reply generation.
 
+<img width="1919" height="925" alt="Screenshot 2026-05-12 184237" src="https://github.com/user-attachments/assets/26a90b0c-ac1f-4862-bff8-b418d6c54d9e" />
+
+
 ## 🚀 Quick Start
 
 ### 1. Clone the repository
