@@ -12,9 +12,11 @@ async function main() {
 
   const app = express();
 
+  const frontendUrl = process.env.FRONTEND_URL?.replace(/\/$/, "");
+
   app.use(
     cors({
-      origin: process.env.FRONTEND_URL!,
+      origin: frontendUrl,
       credentials: true,
     }),
   );
