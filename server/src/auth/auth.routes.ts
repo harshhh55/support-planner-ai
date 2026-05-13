@@ -103,7 +103,9 @@ router.get("/callback", async (req, res) => {
       name: authResult.user.name,
     });
 
-    return res.redirect(`${extractEnv("FRONTEND_URL")}/support`);
+    const redirectUrl = `${extractEnv("FRONTEND_URL")}/support`;
+    console.log("Redirecting user to:", redirectUrl);
+    return res.redirect(redirectUrl);
   } catch (e) {
     console.error("Callback error:", e);
     res.status(500).json({
