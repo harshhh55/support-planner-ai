@@ -9,7 +9,7 @@ const router = Router();
 function extractEnv(key: string) {
   const getVal = process.env[key];
 
-  if (!getVal) throw new Error(`Missing env, ${getVal}`);
+  if (!getVal) throw new Error(`Missing required environment variable: ${key}`);
 
   return getVal;
 }
@@ -54,6 +54,7 @@ router.get("/login", (req, res) => {
 
     res.redirect(authorizationUrl);
   } catch (e) {
+    console.error("Login error:", e);
     res.status(500).json({
       success: false,
       message: "Error",
@@ -104,6 +105,7 @@ router.get("/callback", async (req, res) => {
 
     return res.redirect(`${extractEnv("FRONTEND_URL")}/support`);
   } catch (e) {
+    console.error("Callback error:", e);
     res.status(500).json({
       success: false,
       message: "Error",
