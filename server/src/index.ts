@@ -13,10 +13,11 @@ async function main() {
   const app = express();
 
   const frontendUrl = process.env.FRONTEND_URL?.replace(/\/$/, "");
+  const origins = [frontendUrl, "http://localhost:5173"].filter(Boolean) as string[];
 
   app.use(
     cors({
-      origin: frontendUrl,
+      origin: origins,
       credentials: true,
     }),
   );
@@ -46,7 +47,7 @@ async function main() {
   const port = Number(process.env.PORT || 5000);
 
   app.listen(port, () => {
-    console.log("Server is running on port 5000");
+    console.log(`Server is running on port ${port}`);
   });
 }
 

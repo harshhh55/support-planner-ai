@@ -26,15 +26,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     async function fetchUser() {
-      const res = await apiGet<MeResponse>("/auth/me");
+      try {
+        const res = await apiGet<MeResponse>("/auth/me");
 
-      if (res.ok) {
-        setUser(res.data.user);
-      } else {
+        if (res.ok) {
+          setUser(res.data.user);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Auth initialization failed:", error);
         setUser(null);
+      } finally {
+        setLoading(false);
       }
-
-      setLoading(false);
     }
 
     fetchUser();
@@ -71,7 +76,15 @@ export function AuthGate({ children }: { children: React.ReactNode }) {
     }
   }, [loading, navigate, user, location.pathname]);
 
-  if (loading) return <div>Checking session...</div>;
+  if (loading) return (
+    <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="flex flex-col items-center gap-4">
+        <div className="h-6 w-6 animate-spin rounded-full border-2 border-neutral-900 border-t-transparent" />
+        <p className="text-sm font-medium text-neutral-500">Checking session...</p>
+      </div>
+    </div>
+  );
+  
   if (!user) return null;
 
   return <>{children}</>;
